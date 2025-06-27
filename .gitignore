@@ -84,3 +84,5 @@ terraform.lock.hcl
 **/.roo/rules/
 **/GEMINI.md
 **/.gemini/memories/
+
+tmp
