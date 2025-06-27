@@ -32,7 +32,8 @@ The infrastructure includes:
 ## Quick Start
 
 1. Clone this repository
-2. Navigate to the `google-cloud` directory
+2. Navigate to the `googlecloud` directory
+   - For detailed Google Cloud setup instructions, see [googlecloud/README.md](googlecloud/README.md)
 3. Configure Terraform variables in `terraform.tfvars`:
    ```hcl
    project_id     = "your-gcp-project-id"

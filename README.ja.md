@@ -32,7 +32,8 @@
 ## クイックスタート
 
 1. このリポジトリをクローン
-2. `google-cloud`ディレクトリに移動
+2. `googlecloud`ディレクトリに移動
+   - Google Cloudの詳細なセットアップ手順については、[googlecloud/README.ja.md](googlecloud/README.ja.md)を参照してください
 3. `terraform.tfvars`でTerraform変数を設定：
    ```hcl
    project_id     = "your-gcp-project-id"
