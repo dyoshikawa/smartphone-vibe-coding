@@ -12,9 +12,8 @@ terraform apply
 ssh -i {YOUR_USERNAME}@{IP_ADDRESS}
 ```
 
-gitの設定（あなたの好みで）。
-
 ```bash
+# gitの設定（あなたの好みで）。
 git config --global user.name "YOUR_NAME"
 git config --global user.email "YOUR_EMAIL@example.com"
 git config --global init.defaultBranch main
@@ -22,7 +21,7 @@ git config --global pull.rebase false
 ```
 
 ```bash
-apt install -y
+# Claude Codeのインストール
 curl https://mise.run | sh
 echo "eval \"\$(/home/YOUR_USERNAME/.local/bin/mise activate bash)\"" >> ~/.bashrc
 exec $SHELL -l
@@ -30,9 +29,9 @@ mise use node@24 --global
 npm install -g @anthropic-ai/claude-code
 ```
 
-https://github.com/cli/cli/blob/trunk/docs/install_linux.md
-
 ```bash
+# GitHub CLIのインストール
+# https://github.com/cli/cli/blob/trunk/docs/install_linux.md
 (type -p wget >/dev/null || (sudo apt update && sudo apt-get install wget -y)) \
 	&& sudo mkdir -p -m 755 /etc/apt/keyrings \
         && out=$(mktemp) && wget -nv -O$out https://cli.github.com/packages/githubcli-archive-keyring.gpg \
