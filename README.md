@@ -1,13 +1,14 @@
 ```bash
-git config --global user.name "dyoshikawa"
-git config --global user.email "dyoshikawa1993@gmail.com"
-git config --global user.name "dyoshikawa-coding"
+git config --global user.name "YOUR_NAME"
+git config --global user.email "YOUR_EMAIL@example.com"
+git config --global init.defaultBranch main
+git config --global pull.rebase false
 ```
 
 ```bash
 apt install -y
 curl https://mise.run | sh
-echo "eval \"\$(/home/dyoshikawa1993/.local/bin/mise activate bash)\"" >> ~/.bashrc
+echo "eval \"\$(/home/YOUR_USERNAME/.local/bin/mise activate bash)\"" >> ~/.bashrc
 exec $SHELL -l
 mise use node@24 --global
 npm install -g @anthropic-ai/claude-code
