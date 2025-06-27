@@ -1,3 +1,5 @@
+## ホストマシン上の作業
+
 ```bash
 ssh-keygen -t ed25519 -f ~/.ssh/smartphone_vide_coding -C "YOUR_EMAIL@example.com"
 ```
@@ -11,6 +13,8 @@ terraform apply
 ```bash
 ssh -i {YOUR_USERNAME}@{IP_ADDRESS}
 ```
+
+## リモートサーバ上の作業
 
 ```bash
 # gitの設定（あなたの好みで）。
