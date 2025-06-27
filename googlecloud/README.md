@@ -113,16 +113,21 @@ See: https://docs.github.com/ja/authentication/keeping-your-account-and-data-sec
 gh auth login
 ```
 
-### 5. Clone the Repository
+### 5. Clone Your Repository and Start Coding
 
-Clone the repository to your local machine:
+Clone your project repository and start Claude Code:
 
 ```bash
+# Clone your repository
 git clone https://github.com/YOUR_USERNAME/YOUR_REPO
 cd YOUR_REPO
-# Let's go coding! (It's not necessary web browser, you can use temporary code login, followed by instructions from Claude Code.)
+
+# Start Claude Code
+# Note: Browser is not required - you can use temporary code authentication
 claude
 ```
+
+Claude Code will guide you through the authentication process. Follow the on-screen instructions to complete the setup.
 
 ## Additional Resources
 

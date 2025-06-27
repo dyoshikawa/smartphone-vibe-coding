@@ -104,11 +104,30 @@ sudo apt install gh -y
 
 Personal Access Token（PAT）を使用してGitHub CLIを認証します：
 
+セキュリティのため推奨：fine-grainedパーソナルアクセストークンを使用し、特定のリポジトリのみを許可してください。
+
+参照：https://docs.github.com/ja/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens
+
 ```bash
+# PATでログイン
 gh auth login
 ```
 
-プロンプトが表示されたら、GitHubのPersonal Access Tokenを貼り付けてください。
+### 5. リポジトリのクローンとコーディング開始
+
+プロジェクトリポジトリをクローンしてClaude Codeを起動します：
+
+```bash
+# リポジトリをクローン
+git clone https://github.com/YOUR_USERNAME/YOUR_REPO
+cd YOUR_REPO
+
+# Claude Codeを起動
+# 注：ブラウザは不要です - テンポラリーコード認証を使用できます
+claude
+```
+
+Claude Codeが認証プロセスをガイドします。画面の指示に従ってセットアップを完了してください。
 
 ## その他のリソース
 
