@@ -18,7 +18,20 @@
 ssh-keygen -t ed25519 -f ~/.ssh/smartphone_vibe_coding -C "YOUR_EMAIL@example.com"
 ```
 
-### 2. Terraformでインフラストラクチャをデプロイ
+### 2. Terraform変数の設定
+
+サンプル変数ファイルをコピーして、実際の値で設定します：
+
+```bash
+cp terraform.tfvars.example terraform.tfvars
+```
+
+`terraform.tfvars`を実際の値で編集します：
+- `project_id`: Google CloudプロジェクトID
+- `project_number`: Google Cloudプロジェクト番号
+- `ssh_keys`: SSH公開鍵（形式: "username:ssh-rsa AAAAB3..."）
+
+### 3. Terraformでインフラストラクチャをデプロイ
 
 Google Cloudインフラストラクチャを初期化してデプロイします：
 
@@ -28,7 +41,7 @@ terraform plan
 terraform apply
 ```
 
-### 3. サーバーへの接続
+### 4. サーバーへの接続
 
 インフラストラクチャがデプロイされたら、SSHを使用してサーバーに接続します：
 

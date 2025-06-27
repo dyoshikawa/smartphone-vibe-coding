@@ -1,0 +1,11 @@
+# Terraform variables example file
+# Copy this file to terraform.tfvars and fill in your actual values
+# terraform.tfvars is gitignored to keep your sensitive information secure
+
+# Google Cloud project configuration
+project_id     = "your-project-id"
+project_number = "your-project-number"
+
+# SSH configuration
+# Format: "username:ssh-rsa AAAAB3... user@hostname"
+ssh_keys = "your-username:your-ssh-public-key"

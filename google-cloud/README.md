@@ -18,7 +18,20 @@ Generate an SSH key pair for secure connection to your cloud instance:
 ssh-keygen -t ed25519 -f ~/.ssh/smartphone_vibe_coding -C "YOUR_EMAIL@example.com"
 ```
 
-### 2. Deploy Infrastructure with Terraform
+### 2. Configure Terraform VariablesR
+
+Copy the example variables file and configure it with your actual values:
+
+```bash
+cp terraform.tfvars.example terraform.tfvars
+```
+
+Edit `terraform.tfvars` with your actual values:
+- `project_id`: Your Google Cloud project ID
+- `project_number`: Your Google Cloud project number
+- `ssh_keys`: SSH public key in the format "username:ssh-rsa AAAAB3..."
+
+### 3. Deploy Infrastructure with Terraform
 
 Initialize and deploy your Google Cloud infrastructure:
 
@@ -28,7 +41,7 @@ terraform plan
 terraform apply
 ```
 
-### 3. Connect to the Server
+### 4. Connect to the Server
 
 Once the infrastructure is deployed, connect to your server using SSH:
 

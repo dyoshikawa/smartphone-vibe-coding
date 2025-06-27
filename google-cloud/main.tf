@@ -21,13 +21,11 @@ provider "google" {
 variable "project_id" {
   description = "GCP Project ID"
   type        = string
-  default     = "TODO"
 }
 
 variable "project_number" {
   description = "GCP Project Number"
   type        = string
-  default     = "TODO"
 }
 
 variable "region" {
@@ -46,6 +44,11 @@ variable "instance_name" {
   description = "GCE Instance Name"
   type        = string
   default     = "managed-instance"
+}
+
+variable "ssh_keys" {
+  description = "SSH keys to be added to instance metadata (format: 'username:ssh-rsa ...')"
+  type        = string
 }
 
 # Enable required APIs
@@ -105,7 +108,7 @@ resource "google_compute_instance" "managed_instance" {
 
   metadata = {
     startup-script = "#!/bin/bash\napt-get update\napt-get install -y nginx\nsystemctl start nginx\nsystemctl enable nginx"
-    ssh-keys       = "TODO"
+    ssh-keys       = var.ssh_keys
   }
 
   tags = ["http-server", "https-server"]
