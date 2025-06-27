@@ -1,8 +1,100 @@
-- これはスマートフォンからVibe Codingを行うためのリポジトリです。
-- Amazon EC2 や Google Compute Engine上にClaude Codeをインストールして、iOS/Androidアプリの[Termius](https://termius.com/)からSSH接続してVibe Codingを行います。
-- Claude CodeはAPIキー従量課金ではなく月額定額プランを使用するので、リーズナブルです。
-- また、必要な時だけインスタンスを起動することでコンピューティングの課金を抑制します。
+# Smartphone Vibe Coding
 
-- TODO
-  - [ ] aws
-  - [x] googlecloud
+A repository for enabling "Vibe Coding" from smartphones by setting up Claude Code on cloud instances and connecting via SSH from mobile devices.
+
+## Overview
+
+This project provides infrastructure-as-code to deploy a cost-effective cloud environment for remote coding sessions. It creates managed compute instances on Google Cloud Platform that can be easily started/stopped on demand, helping minimize costs while providing a powerful coding environment accessible from mobile devices.
+
+Key features:
+- Monthly subscription-based Claude Code (not API key-based pricing)
+- On-demand instance management to minimize compute costs
+- Automatic daily shutdown at midnight (JST)
+- Static IP address for consistent access
+- Mobile-friendly access via [Termius](https://termius.com/) SSH client
+
+## Architecture
+
+The infrastructure includes:
+- **Compute Instance**: Ubuntu 22.04 LTS on e2-micro (free tier eligible)
+- **Cloud Functions**: HTTP-triggered functions for starting/stopping instances
+- **Cloud Scheduler**: Automatic daily shutdown at midnight JST
+- **Static IP**: Persistent IP address for SSH access
+
+## Prerequisites
+
+- Terraform (version requirement to be specified)
+- Google Cloud Platform account with billing enabled
+- gcloud CLI configured with appropriate permissions
+- Claude Code subscription
+- Termius app on iOS/Android device
+
+## Quick Start
+
+1. Clone this repository
+2. Navigate to the `google-cloud` directory
+3. Configure Terraform variables in `terraform.tfvars`:
+   ```hcl
+   project_id     = "your-gcp-project-id"
+   project_number = "your-gcp-project-number"
+   ```
+4. Deploy the infrastructure:
+   ```bash
+   terraform init
+   terraform plan
+   terraform apply
+   ```
+5. After deployment, Terraform will output:
+   - Instance start URL
+   - Instance stop URL
+   - Static IP address
+
+## Usage
+
+### Starting the Instance
+- Via HTTP: Access the start URL provided by Terraform output
+- Via CLI: `gcloud compute instances start managed-instance --zone=asia-northeast1-a`
+
+### Stopping the Instance
+- Via HTTP: Access the stop URL provided by Terraform output
+- Via CLI: `gcloud compute instances stop managed-instance --zone=asia-northeast1-a`
+- Automatic: Instance stops daily at midnight JST
+
+### Connecting from Mobile
+1. Install Termius on your mobile device
+2. Create a new host with the static IP address
+3. Configure SSH keys for authentication
+4. Connect and start coding!
+
+## Setting up Claude Code
+
+After connecting to the instance:
+1. Install Claude Code following the [official documentation](https://docs.anthropic.com/claude-code)
+2. Configure your Claude API credentials
+3. Start your coding session
+
+## Cost Optimization
+
+- Uses e2-micro instance (free tier eligible)
+- Automatic daily shutdown prevents 24/7 charges
+- On-demand start/stop via HTTP endpoints
+- Static IP ensures no changes needed in SSH client
+
+## TODO
+
+- [ ] AWS implementation
+- [x] Google Cloud implementation
+
+## Security Considerations
+
+- Cloud Functions are publicly accessible (consider adding authentication)
+- SSH access should be secured with key-based authentication
+- Consider implementing IP allowlisting for additional security
+
+## Contributing
+
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+## License
+
+[License information to be added]
