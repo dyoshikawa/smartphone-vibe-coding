@@ -113,6 +113,17 @@ See: https://docs.github.com/ja/authentication/keeping-your-account-and-data-sec
 gh auth login
 ```
 
+### 5. Clone the Repository
+
+Clone the repository to your local machine:
+
+```bash
+git clone https://github.com/YOUR_USERNAME/YOUR_REPO
+cd YOUR_REPO
+# Let's go coding! (It's not necessary web browser, you can use temporary code login, followed by instructions from Claude Code.)
+claude
+```
+
 ## Additional Resources
 
 - [GitHub CLI Documentation](https://cli.github.com/manual/)
