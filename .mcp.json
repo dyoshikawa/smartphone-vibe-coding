@@ -1,0 +1,26 @@
+{
+  "mcpServers": {
+    "o3-search": {
+      "command": "npx",
+      "args": ["o3-search-mcp"],
+      "env": {
+        "SEARCH_CONTEXT_SIZE": "medium",
+        "REASONING_EFFORT": "medium",
+        "OPENAI_API_KEY": "${OPENAI_API_KEY}"
+      }
+    },
+    "github": {
+        "command": "docker",
+        "args": [
+          "run",
+          "-i",
+          "--rm",
+          "-e",
+          "GITHUB_PERSONAL_ACCESS_TOKEN",
+          "-e",
+          "GITHUB_TOOLSETS=context,issues,pull_requests",
+          "ghcr.io/github/github-mcp-server"
+        ]
+    }
+  }
+}
