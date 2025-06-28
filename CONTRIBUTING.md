@@ -23,6 +23,7 @@ Thank you for your interest in contributing to the Smartphone Vibe Coding projec
 - Google Cloud Platform account with billing enabled
 - gcloud CLI configured with appropriate permissions
 - Git
+- pnpm (Package manager)
 
 ## Making Changes
 
@@ -37,10 +38,14 @@ Thank you for your interest in contributing to the Smartphone Vibe Coding projec
    - Keep commits atomic and write meaningful commit messages
    - Add tests for new functionality
 
-3. Test your changes:
+3. Install dependencies and test your changes:
+   ```bash
+   pnpm install
+   ```
    - Validate Terraform configurations: `terraform validate`
    - Check Terraform formatting: `terraform fmt -check`
    - Review planned changes: `terraform plan`
+   - Run security checks: `pnpm run secretlint`
 
 ## Submitting a Pull Request
 

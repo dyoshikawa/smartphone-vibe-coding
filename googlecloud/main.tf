@@ -31,13 +31,13 @@ variable "project_number" {
 variable "region" {
   description = "GCP Region"
   type        = string
-  default     = "asia-northeast1"
+  default     = "us-west2"
 }
 
 variable "zone" {
   description = "GCP Zone"
   type        = string
-  default     = "asia-northeast1-a"
+  default     = "us-west2-a"
 }
 
 variable "instance_name" {

@@ -1,0 +1,19 @@
+{
+  "name": "smartphone-vibe-coding",
+  "version": "1.0.0",
+  "description": "Smartphone vibration coding project",
+  "scripts": {
+    "secretlint": "secretlint \"**/*\"",
+    "secretlint:ci": "secretlint \"**/*\" --format compact",
+    "prepare": "simple-git-hooks"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx secretlint \"**/*\""
+  },
+  "devDependencies": {
+    "@secretlint/secretlint-rule-preset-recommend": "10.1.1",
+    "secretlint": "10.1.1",
+    "simple-git-hooks": "2.13.0"
+  },
+  "private": true
+}

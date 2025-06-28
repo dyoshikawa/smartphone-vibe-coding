@@ -23,6 +23,7 @@ Smartphone Vibe Codingプロジェクトへの貢献に興味を持っていた�
 - Google Cloud Platformアカウント（課金が有効になっていること）
 - 適切な権限で設定されたgcloud CLI
 - Git
+- pnpm（パッケージマネージャー）
 
 ## 変更の実施
 
@@ -37,10 +38,14 @@ Smartphone Vibe Codingプロジェクトへの貢献に興味を持っていた�
    - コミットを原子的に保ち、意味のあるコミットメッセージを書く
    - 新機能にはテストを追加する
 
-3. 変更をテスト：
+3. 依存関係をインストールし、変更をテスト：
+   ```bash
+   pnpm install
+   ```
    - Terraform設定の検証：`terraform validate`
    - Terraformフォーマットの確認：`terraform fmt -check`
    - 計画された変更のレビュー：`terraform plan`
+   - セキュリティチェックの実行：`pnpm run secretlint`
 
 ## プルリクエストの提出
 
