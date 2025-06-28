@@ -5,8 +5,7 @@
       "args": ["o3-search-mcp"],
       "env": {
         "SEARCH_CONTEXT_SIZE": "medium",
-        "REASONING_EFFORT": "medium",
-        "OPENAI_API_KEY": "${OPENAI_API_KEY}"
+        "REASONING_EFFORT": "medium"
       }
     },
     "github": {
