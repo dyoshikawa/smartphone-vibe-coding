@@ -74,6 +74,8 @@ After connecting to the instance:
 2. Configure your Claude API credentials
 3. Start your coding session
 
+For detailed setup instructions, see [googlecloud/README.md](googlecloud/README.md).
+
 ## Cost Optimization
 
 - Uses e2-micro instance (free tier eligible)

@@ -74,6 +74,8 @@
 2. Claude APIクレデンシャルを設定
 3. コーディングセッションを開始
 
+詳細なセットアップ手順については、[googlecloud/README.ja.md](googlecloud/README.ja.md)を参照してください。
+
 ## コスト最適化
 
 - e2-microインスタンスを使用（無料枠対象）
