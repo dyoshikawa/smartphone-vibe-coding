@@ -118,22 +118,7 @@ resource "google_compute_instance" "managed_instance" {
   can_ip_forward = true
 
   metadata = {
-    startup-script = <<-EOF
-      #!/bin/bash
-      apt-get update
-      apt-get install -y nginx curl
-      
-      # Install Tailscale
-      curl -fsSL https://tailscale.com/install.sh | sh
-      
-      # Start nginx
-      systemctl start nginx
-      systemctl enable nginx
-      
-      # Note: You need to manually run 'tailscale up' after first boot
-      # Or set up auth key automation if needed
-    EOF
-    ssh-keys       = var.ssh_keys
+    ssh-keys = var.ssh_keys
   }
 
   tags = ["http-server", "https-server", "tailscale"]
