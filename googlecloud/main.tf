@@ -88,7 +88,7 @@ resource "google_compute_address" "static_ip" {
 # GCE Instance
 resource "google_compute_instance" "managed_instance" {
   name         = var.instance_name
-  machine_type = "e2-micro"
+  machine_type = "e2-medium"
   zone         = var.zone
 
   depends_on = [google_project_service.compute_api]
