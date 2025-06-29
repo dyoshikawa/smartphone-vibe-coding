@@ -77,11 +77,6 @@ resource "google_project_service" "run_api" {
   disable_on_destroy = false
 }
 
-# Static IP address
-resource "google_compute_address" "static_ip" {
-  name   = "${var.instance_name}-static-ip"
-  region = var.region
-}
 
 # GCE Instance
 resource "google_compute_instance" "managed_instance" {
@@ -101,9 +96,7 @@ resource "google_compute_instance" "managed_instance" {
 
   network_interface {
     network = "default"
-    access_config {
-      nat_ip = google_compute_address.static_ip.address
-    }
+    access_config {}
   }
 
   metadata = {
@@ -430,7 +423,3 @@ output "instance_zone" {
   value       = google_compute_instance.managed_instance.zone
 }
 
-output "static_ip_address" {
-  description = "Static IP address of the instance"
-  value       = google_compute_address.static_ip.address
-}
