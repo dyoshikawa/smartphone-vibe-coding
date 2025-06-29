@@ -1,5 +1,5 @@
 ---
-root: true
+root: false
 targets: ["*"]
 description: "Project overview and general development guidelines"
 globs: ["*"]
