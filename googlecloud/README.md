@@ -113,7 +113,48 @@ See: https://docs.github.com/ja/authentication/keeping-your-account-and-data-sec
 gh auth login
 ```
 
-### 5. Clone Your Repository and Start Coding
+### 5. Configure Tailscale (Optional)
+
+Tailscale provides secure remote access to your server. If you used Ansible for server setup, Tailscale is already installed.
+
+#### Login to Tailscale
+
+```bash
+# Start Tailscale login process
+sudo tailscale up
+```
+
+This command will display a URL like `https://login.tailscale.com/a/xxxxxx`. Open this URL in your browser to complete authentication.
+
+#### Configure Subnet Routing
+
+After successful authentication, configure subnet routing for GCE:
+
+```bash
+# Configure subnet routing for GCE (allows access to other GCE resources)
+sudo tailscale set --advertise-routes=10.128.0.0/20 --accept-dns=false
+```
+
+#### Enable Subnet Routes (Admin Console)
+
+1. Go to [Tailscale Admin Console](https://login.tailscale.com/admin/machines)
+2. Find your GCE instance in the machine list
+3. Click "..." menu and select "Edit route settings"
+4. Enable the advertised subnet routes (10.128.0.0/20)
+
+#### Verify Connection
+
+```bash
+# Check Tailscale status
+tailscale status
+
+# Get your Tailscale IP
+tailscale ip --4
+```
+
+Once configured, you can connect to your server using the Tailscale IP from any device on your Tailscale network.
+
+### 6. Clone Your Repository and Start Coding
 
 Clone your project repository and start Claude Code:
 
