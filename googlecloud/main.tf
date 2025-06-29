@@ -79,10 +79,8 @@ resource "google_project_service" "run_api" {
 
 # Static IP address
 resource "google_compute_address" "static_ip" {
-  name         = "${var.instance_name}-static-ip"
-  region       = var.region
-  address_type = "EXTERNAL"
-  ip_version   = "IPV6"
+  name   = "${var.instance_name}-static-ip"
+  region = var.region
 }
 
 # GCE Instance
