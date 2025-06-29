@@ -222,3 +222,5 @@ dist
 
 # pnpm
 pnpm-lock.yaml
+
+.terraform.lock.hcl
