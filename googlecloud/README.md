@@ -154,6 +154,19 @@ tailscale ip --4
 
 Once configured, you can connect to your server using the Tailscale IP from any device on your Tailscale network.
 
+#### Remove Public SSH Access (Recommended)
+
+After confirming that Tailscale SSH access works properly, you can remove public SSH access for enhanced security:
+
+1. Go to [Google Cloud Console](https://console.cloud.google.com/)
+2. Navigate to **VPC network** > **Firewall**
+3. Find the **default-allow-ssh** rule
+4. Click on it and then click **Delete**
+
+This removes the ability to SSH to your instance from the public internet, leaving only Tailscale-based private network access available.
+
+**Important**: Only do this after confirming that you can successfully connect via Tailscale SSH. If you lose access, you'll need to recreate the SSH firewall rule or use Google Cloud Console's browser-based SSH.
+
 ### 6. Clone Your Repository and Start Coding
 
 Clone your project repository and start Claude Code:
