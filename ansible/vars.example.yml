@@ -4,6 +4,3 @@
 git_name: "Your Name"
 git_email: "your.email@example.com"
 
-# Tailscale configuration (optional)
-# Automatically configure subnet routing (set to true for GCE)
-tailscale_advertise_routes: true
