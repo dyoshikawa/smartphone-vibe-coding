@@ -78,7 +78,21 @@ resource "google_project_service" "run_api" {
 }
 
 
-# GCE Instance
+# Firewall rule for Tailscale
+resource "google_compute_firewall" "tailscale_udp" {
+  name    = "allow-tailscale-udp"
+  network = "default"
+
+  allow {
+    protocol = "udp"
+    ports    = ["41641"]
+  }
+
+  source_ranges = ["0.0.0.0/0"]
+  target_tags   = ["tailscale"]
+}
+
+# GCE Instance with Tailscale
 resource "google_compute_instance" "managed_instance" {
   name         = var.instance_name
   machine_type = "e2-medium"
@@ -96,15 +110,33 @@ resource "google_compute_instance" "managed_instance" {
 
   network_interface {
     network = "default"
+    # Enable IP forwarding for Tailscale subnet routing
+    # Comment out access_config to remove public IP if needed
     access_config {}
   }
 
+  can_ip_forward = true
+
   metadata = {
-    startup-script = "#!/bin/bash\napt-get update\napt-get install -y nginx\nsystemctl start nginx\nsystemctl enable nginx"
+    startup-script = <<-EOF
+      #!/bin/bash
+      apt-get update
+      apt-get install -y nginx curl
+      
+      # Install Tailscale
+      curl -fsSL https://tailscale.com/install.sh | sh
+      
+      # Start nginx
+      systemctl start nginx
+      systemctl enable nginx
+      
+      # Note: You need to manually run 'tailscale up' after first boot
+      # Or set up auth key automation if needed
+    EOF
     ssh-keys       = var.ssh_keys
   }
 
-  tags = ["http-server", "https-server"]
+  tags = ["http-server", "https-server", "tailscale"]
 }
 
 # Service Account for Cloud Functions
