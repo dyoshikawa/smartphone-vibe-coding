@@ -1,0 +1,114 @@
+---
+- name: Add Tailscale GPG key
+  get_url:
+    url: https://pkgs.tailscale.com/stable/ubuntu/jammy.noarmor.gpg
+    dest: /usr/share/keyrings/tailscale-archive-keyring.gpg
+    mode: '0644'
+
+- name: Add Tailscale repository
+  apt_repository:
+    repo: "deb [signed-by=/usr/share/keyrings/tailscale-archive-keyring.gpg] https://pkgs.tailscale.com/stable/ubuntu jammy main"
+    state: present
+    filename: tailscale
+
+- name: Update apt cache
+  apt:
+    update_cache: yes
+
+- name: Install Tailscale
+  apt:
+    name: tailscale
+    state: present
+
+- name: Start and enable Tailscale service
+  systemd:
+    name: tailscaled
+    state: started
+    enabled: yes
+
+- name: Check if Tailscale is already authenticated
+  shell: tailscale status --json
+  register: tailscale_status
+  failed_when: false
+  changed_when: false
+
+- name: Get GCE network information
+  uri:
+    url: http://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/0/network
+    headers:
+      Metadata-Flavor: Google
+  register: gce_network_info
+  failed_when: false
+
+- name: Get subnet information for route advertisement
+  shell: |
+    if [ -f /sys/class/net/ens4/address ]; then
+      ip route show dev ens4 | grep -E '^10\.' | head -1 | awk '{print $1}'
+    else
+      echo "10.128.0.0/20"
+    fi
+  register: subnet_cidr
+  changed_when: false
+
+- name: Authenticate with Tailscale (if auth key provided)
+  shell: tailscale up --auth-key={{ tailscale_auth_key }}
+  when: 
+    - tailscale_auth_key is defined
+    - tailscale_auth_key != ""
+    - tailscale_status.rc != 0
+  register: tailscale_auth_result
+
+- name: Configure Tailscale subnet routing for GCE
+  shell: tailscale set --advertise-routes={{ subnet_cidr.stdout | default('10.128.0.0/20') }} --accept-dns=false
+  when:
+    - tailscale_advertise_routes | default(true)
+    - tailscale_auth_result is succeeded or tailscale_status.rc == 0
+  register: tailscale_route_result
+
+- name: Create Tailscale auth key file template
+  template:
+    content: |
+      #!/bin/bash
+      # Tailscale authentication and GCE configuration script
+      # This script should be run manually after deployment
+      
+      echo "Setting up Tailscale for GCE..."
+      
+      # Step 1: Authenticate with Tailscale (requires manual intervention)
+      echo "Run the following command to authenticate:"
+      echo "sudo tailscale up --auth-key=YOUR_AUTH_KEY"
+      echo ""
+      echo "Or for interactive authentication:"
+      echo "sudo tailscale up"
+      echo ""
+      
+      # Step 2: Configure subnet routing for GCE
+      echo "After authentication, configure subnet routing:"
+      echo "sudo tailscale set --advertise-routes={{ subnet_cidr.stdout | default('10.128.0.0/20') }} --accept-dns=false"
+      echo ""
+      
+      # Step 3: Enable IP forwarding (already enabled in Terraform)
+      echo "IP forwarding is already enabled via Terraform configuration."
+      echo ""
+      
+      echo "Tailscale setup complete!"
+      echo "Remember to:"
+      echo "1. Approve subnet routes in Tailscale admin console"
+      echo "2. Consider disabling SSH access via public IP for security"
+    dest: /home/{{ user_name }}/setup-tailscale-gce.sh
+    mode: '0755'
+  become_user: "{{ user_name }}"
+
+- name: Display Tailscale GCE setup instructions
+  debug:
+    msg: |
+      Tailscale has been installed successfully for GCE.
+      
+      Next steps:
+      1. Run the setup script: ./setup-tailscale-gce.sh
+      2. Get an auth key from https://login.tailscale.com/admin/settings/keys
+      3. Authenticate: sudo tailscale up --auth-key=YOUR_AUTH_KEY
+      4. Configure subnet routing: sudo tailscale set --advertise-routes={{ subnet_cidr.stdout | default('10.128.0.0/20') }} --accept-dns=false
+      5. Approve subnet routes in Tailscale admin console
+      
+      Detected subnet: {{ subnet_cidr.stdout | default('10.128.0.0/20') }}

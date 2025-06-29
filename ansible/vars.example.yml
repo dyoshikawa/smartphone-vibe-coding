@@ -1,0 +1,11 @@
+---
+# Git configuration variables
+# Copy this file to vars.yml and set your actual values
+git_name: "Your Name"
+git_email: "your.email@example.com"
+
+# Tailscale configuration (optional)
+# Get your auth key from https://login.tailscale.com/admin/settings/keys
+tailscale_auth_key: ""
+# Automatically configure subnet routing (set to true for GCE)
+tailscale_advertise_routes: true

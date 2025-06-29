@@ -224,3 +224,6 @@ dist
 pnpm-lock.yaml
 
 .terraform.lock.hcl
+
+# Ansible variables with sensitive data
+ansible/vars.yml

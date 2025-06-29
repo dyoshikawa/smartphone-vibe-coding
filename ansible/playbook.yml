@@ -1,0 +1,26 @@
+---
+- name: Setup development environment on Ubuntu server
+  hosts: ubuntu_servers
+  become: yes
+  vars:
+    user_name: "{{ ansible_user }}"
+    user_home: "/home/{{ user_name }}"
+    git_user_name: "{{ git_name | default('') }}"
+    git_user_email: "{{ git_email | default('') }}"
+  
+  tasks:
+    - name: Include git configuration tasks
+      include_tasks: tasks/git_config.yml
+      when: git_user_name != "" and git_user_email != ""
+    
+    - name: Include development tools installation tasks
+      include_tasks: tasks/dev_tools.yml
+    
+    - name: Include GitHub CLI installation tasks
+      include_tasks: tasks/github_cli.yml
+    
+    - name: Include Docker installation tasks
+      include_tasks: tasks/docker.yml
+    
+    - name: Include Tailscale installation tasks
+      include_tasks: tasks/tailscale.yml

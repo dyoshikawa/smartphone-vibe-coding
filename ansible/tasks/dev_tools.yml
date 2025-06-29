@@ -1,0 +1,36 @@
+---
+- name: Install curl (required for mise installation)
+  apt:
+    name: curl
+    state: present
+    update_cache: yes
+
+- name: Download and install mise
+  shell: |
+    curl https://mise.run | sh
+  args:
+    creates: "{{ user_home }}/.local/bin/mise"
+  become_user: "{{ user_name }}"
+
+- name: Add mise to bashrc
+  lineinfile:
+    path: "{{ user_home }}/.bashrc"
+    line: 'eval "$(/home/{{ user_name }}/.local/bin/mise activate bash)"'
+    create: yes
+  become_user: "{{ user_name }}"
+
+- name: Install Node.js 24 using mise
+  shell: |
+    export PATH="{{ user_home }}/.local/bin:$PATH"
+    eval "$(/home/{{ user_name }}/.local/bin/mise activate bash)"
+    mise use node@24 --global
+  args:
+    creates: "{{ user_home }}/.local/share/mise/installs/node"
+  become_user: "{{ user_name }}"
+
+- name: Install Claude Code using npm
+  shell: |
+    export PATH="{{ user_home }}/.local/bin:$PATH"
+    eval "$(/home/{{ user_name }}/.local/bin/mise activate bash)"
+    npm install -g @anthropic-ai/claude-code
+  become_user: "{{ user_name }}"
