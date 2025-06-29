@@ -18,6 +18,20 @@ resource "google_compute_firewall" "tailscale_udp" {
   target_tags   = ["tailscale"]
 }
 
+# Deny SSH access from internet (higher priority than default allow-ssh rule)
+resource "google_compute_firewall" "deny_ssh" {
+  name    = "deny-ssh-from-internet"
+  network = "default"
+  
+  deny {
+    protocol = "tcp"
+    ports    = ["22"]
+  }
+  
+  source_ranges = ["0.0.0.0/0"]
+  priority      = 1000
+}
+
 # GCE Instance with Tailscale
 resource "google_compute_instance" "coding_instance" {
   name         = var.instance_name
@@ -47,5 +61,5 @@ resource "google_compute_instance" "coding_instance" {
     ssh-keys = var.ssh_keys
   }
 
-  tags = ["http-server", "https-server", "tailscale"]
+  tags = ["tailscale"]
 }
