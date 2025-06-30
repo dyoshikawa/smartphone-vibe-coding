@@ -23,9 +23,23 @@ Thank you for your interest in contributing to the Smartphone Vibe Coding projec
 - Google Cloud Platform account with billing enabled
 - gcloud CLI configured with appropriate permissions
 - Git
-- pnpm (Package manager)
+- mise (development tool version manager)
 - Ansible (for automated server setup)
 - SSH key pair for server access
+
+### Tool Version Management with mise
+
+This project uses [mise](https://mise.jdx.dev/) to manage development tool versions. Install mise first, then run:
+
+```bash
+mise install
+```
+
+This will automatically install the correct versions of:
+- Node.js (v24)
+- pnpm (v10)
+
+The tool versions are defined in `mise.toml` at the project root.
 
 ## Making Changes
 
