@@ -227,3 +227,4 @@ pnpm-lock.yaml
 
 # Ansible variables with sensitive data
 ansible/vars.yml
+ansible/inventory.ini
