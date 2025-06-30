@@ -24,6 +24,8 @@ Thank you for your interest in contributing to the Smartphone Vibe Coding projec
 - gcloud CLI configured with appropriate permissions
 - Git
 - pnpm (Package manager)
+- Ansible (for automated server setup)
+- SSH key pair for server access
 
 ## Making Changes
 
@@ -45,6 +47,7 @@ Thank you for your interest in contributing to the Smartphone Vibe Coding projec
    - Validate Terraform configurations: `terraform validate`
    - Check Terraform formatting: `terraform fmt -check`
    - Review planned changes: `terraform plan`
+   - Test Ansible playbooks: `ansible-playbook --syntax-check playbook.yml`
    - Run security checks: `pnpm run secretlint`
 
 ## Submitting a Pull Request
@@ -68,6 +71,7 @@ Thank you for your interest in contributing to the Smartphone Vibe Coding projec
 ## Code Style Guidelines
 
 - Follow Terraform best practices and conventions
+- Follow Ansible best practices for playbook organization
 - Follow the existing project structure
 - Use meaningful variable and function names
 - Keep functions small and focused

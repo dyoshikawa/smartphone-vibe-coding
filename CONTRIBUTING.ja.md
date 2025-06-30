@@ -24,6 +24,8 @@ Smartphone Vibe Codingプロジェクトへの貢献に興味を持っていた�
 - 適切な権限で設定されたgcloud CLI
 - Git
 - pnpm（パッケージマネージャー）
+- Ansible（自動サーバーセットアップ用）
+- サーバーアクセス用のSSHキーペア
 
 ## 変更の実施
 
@@ -45,6 +47,7 @@ Smartphone Vibe Codingプロジェクトへの貢献に興味を持っていた�
    - Terraform設定の検証：`terraform validate`
    - Terraformフォーマットの確認：`terraform fmt -check`
    - 計画された変更のレビュー：`terraform plan`
+   - Ansibleプレイブックのテスト：`ansible-playbook --syntax-check playbook.yml`
    - セキュリティチェックの実行：`pnpm run secretlint`
 
 ## プルリクエストの提出
@@ -68,6 +71,7 @@ Smartphone Vibe Codingプロジェクトへの貢献に興味を持っていた�
 ## コードスタイルガイドライン
 
 - Terraformのベストプラクティスと規約に従う
+- Ansibleプレイブック組織化のベストプラクティスに従う
 - 既存のプロジェクト構造に従う
 - 意味のある変数名と関数名を使用
 - 関数は小さく、焦点を絞って作成

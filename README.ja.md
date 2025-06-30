@@ -67,12 +67,24 @@
 3. 認証用のSSHキーを設定
 4. 接続してコーディング開始！
 
-## Claude Codeのセットアップ
+## 開発環境のセットアップ
 
-インスタンスに接続後：
-1. [公式ドキュメント](https://docs.anthropic.com/claude-code)に従ってClaude Codeをインストール
-2. Claude APIクレデンシャルを設定
-3. コーディングセッションを開始
+### 自動セットアップ（推奨）
+
+プロジェクトには開発環境を自動的にセットアップするAnsibleプレイブックが含まれています：
+
+1. インスタンスに接続後、このリポジトリをクローンします
+2. `ansible`ディレクトリに移動します
+3. [ansible/README.ja.md](ansible/README.ja.md)のセットアップ手順に従います
+4. プレイブックが以下を自動的にインストールします：
+   - Git設定
+   - mise、Node.js、Claude Code
+   - GitHub CLI
+   - Docker
+
+### 手動セットアップ
+
+代替案として、[公式ドキュメント](https://docs.anthropic.com/claude-code)に従ってClaude Codeを手動でインストールすることもできます。
 
 詳細なセットアップ手順については、[googlecloud/README.ja.md](googlecloud/README.ja.md)を参照してください。
 

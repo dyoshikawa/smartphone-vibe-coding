@@ -67,12 +67,24 @@ The infrastructure includes:
 3. Configure SSH keys for authentication
 4. Connect and start coding!
 
-## Setting up Claude Code
+## Setting up the Development Environment
 
-After connecting to the instance:
-1. Install Claude Code following the [official documentation](https://docs.anthropic.com/claude-code)
-2. Configure your Claude API credentials
-3. Start your coding session
+### Automated Setup (Recommended)
+
+The project includes Ansible playbooks to automatically set up your development environment:
+
+1. After connecting to the instance, clone this repository
+2. Navigate to the `ansible` directory
+3. Follow the setup instructions in [ansible/README.md](ansible/README.md)
+4. The playbook will automatically install:
+   - Git configuration
+   - mise, Node.js, and Claude Code
+   - GitHub CLI
+   - Docker
+
+### Manual Setup
+
+Alternatively, you can manually install Claude Code following the [official documentation](https://docs.anthropic.com/claude-code).
 
 For detailed setup instructions, see [googlecloud/README.md](googlecloud/README.md).
 
