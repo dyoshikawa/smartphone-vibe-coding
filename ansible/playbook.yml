@@ -21,6 +21,3 @@
     
     - name: Include Docker installation tasks
       include_tasks: tasks/docker.yml
-    
-    - name: Include Tailscale installation tasks
-      include_tasks: tasks/tailscale.yml

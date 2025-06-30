@@ -6,7 +6,6 @@ This Ansible playbook automates the setup of a development environment on Ubuntu
 - mise, Node.js, and Claude Code installation
 - GitHub CLI installation
 - Docker installation with non-root user configuration
-- Tailscale installation
 
 ## Prerequisites
 
@@ -16,7 +15,13 @@ This Ansible playbook automates the setup of a development environment on Ubuntu
 
 ## Setup
 
-1. **Update inventory file**
+1. **Create inventory file**
+
+   Copy the example inventory file and configure it with your server details:
+
+   ```bash
+   cp inventory.example.ini inventory.ini
+   ```
 
    Edit `inventory.ini` and replace with your actual server details:
 
@@ -39,9 +44,6 @@ This Ansible playbook automates the setup of a development environment on Ubuntu
    git_name: "Your Name"
    git_email: "your.email@example.com"
    
-   # Optional: Tailscale auto-configuration
-   tailscale_auth_key: "tskey-auth-your-key-here"
-   tailscale_advertise_routes: true
    ```
 
 ## Usage
@@ -88,14 +90,6 @@ ansible-playbook -i inventory.ini playbook.yml -e @vars.yml
 - Adds user to docker group (non-root access)
 - Verifies installation
 
-### Tailscale (`tasks/tailscale.yml`)
-- Adds Tailscale repository and GPG key
-- Installs Tailscale
-- Starts and enables Tailscale service
-- Auto-detects GCE network subnet for route advertisement
-- Configures Tailscale for GCE subnet routing (if auth key provided)
-- Creates setup script for manual configuration
-- Ready for network authentication
 
 ## Post-installation steps
 
@@ -116,22 +110,7 @@ After running the playbook, you may need to:
    docker run hello-world
    ```
 
-4. **Connect to Tailscale network**:
-   
-   If you provided an auth key in `vars.yml`, Tailscale should be automatically configured.
-   
-   Otherwise, authenticate manually:
-   ```bash
-   sudo tailscale up
-   ```
-   Follow the authentication link provided.
-   
-   For GCE subnet routing, run the generated setup script:
-   ```bash
-   ./setup-tailscale-gce.sh
-   ```
-
-5. **Start Claude Code**:
+4. **Start Claude Code**:
    ```bash
    claude
    ```
@@ -148,8 +127,7 @@ ansible/
     ├── git_config.yml    # Git configuration tasks
     ├── dev_tools.yml     # mise, Node.js, Claude Code
     ├── github_cli.yml    # GitHub CLI installation
-    ├── docker.yml        # Docker installation and setup
-    └── tailscale.yml     # Tailscale installation
+    └── docker.yml        # Docker installation and setup
 ```
 
 Note: `vars.yml` is gitignored and should be created by copying `vars.example.yml`.
@@ -159,8 +137,3 @@ Note: `vars.yml` is gitignored and should be created by copying `vars.example.ym
 - If Docker commands require `sudo`, the user may need to log out and back in for group changes to take effect
 - If Claude Code is not found, ensure the shell environment is reloaded to activate mise
 - For GitHub CLI authentication issues, refer to the [GitHub CLI documentation](https://cli.github.com/manual/)
-- For Tailscale setup, run `sudo tailscale up` and follow the authentication URL
-- Check Tailscale status with `tailscale status`
-- For GCE subnet routing: Approve routes in Tailscale admin console under Machine settings
-- Get Tailscale auth keys from https://login.tailscale.com/admin/settings/keys
-- If subnet routing doesn't work, check that IP forwarding is enabled: `cat /proc/sys/net/ipv4/ip_forward` should show `1`
