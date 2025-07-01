@@ -8,10 +8,14 @@
     "prepare": "simple-git-hooks"
   },
   "simple-git-hooks": {
-    "pre-commit": "npx secretlint \"**/*\""
+    "pre-commit": "pnpm exec lint-staged"
+  },
+  "lint-staged": {
+    "*": "pnpm exec secretlint"
   },
   "devDependencies": {
     "@secretlint/secretlint-rule-preset-recommend": "10.1.1",
+    "lint-staged": "^15.2.0",
     "secretlint": "10.1.1",
     "simple-git-hooks": "2.13.0"
   },
